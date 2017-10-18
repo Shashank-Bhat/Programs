@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div { background-color: ; border: solid 2px black; margin: 30px; }
+</style>
+
+<script type="text/javascript">
+
+var count2 = 0;
+var countc =0;
+function addpost()
+{
+	var a = prompt("Enter the status: ");
+    var division = document.createElement("div");
+		division.setAttribute("id","division"+count2);
+		
+    var post = document.createElement("pre");
+		post.textContent = a;
+		
+	var lbl = document.createElement("label");
+		lbl.setAttribute("id","label"+count2);
+		lbl.textContent = "0 Likes";
+    
+    var btn1 = document.createElement("input");
+		btn1.setAttribute("type","button");
+		btn1.setAttribute("id", "b"+count2);
+		btn1.setAttribute("value","Likes");
+		btn1.setAttribute("onClick","like1(this.id)");
+		
+    var btn2 = document.createElement("input");
+		btn2.setAttribute("type","button");
+		btn2.setAttribute("value","Comment");
+		btn2.setAttribute("id", "bc"+count2);
+		btn2.setAttribute("onClick","comment(this.id)");
+	
+    var btn3 = document.createElement("input");
+		btn3.setAttribute("type","button");
+		btn3.setAttribute("value","Delete");
+		btn3.setAttribute("id", "bd"+count2);
+		btn3.setAttribute("onClick","del1(this.id)");
+		
+    count2++;
+	
+    division.appendChild(post);
+    division.appendChild(lbl);
+    division.appendChild(btn1);
+    division.appendChild(btn2);
+    division.appendChild(btn3);
+    document.body.appendChild(division);
+}
+
+function del1(l)
+{
+    var but = document.getElementById(l);
+	var post = but.parentNode;
+	document.body.removeChild(post);
+}
+
+function like1(l)
+{
+	var but = document.getElementById(l);
+	var post = but.parentNode;
+	var status= post.firstChild;
+	var lab = status.nextSibling;
+	lab.textContent= (parseInt(lab.textContent) + 1)+" Likes";
+}
+
+
+function comment(l)
+{
+var a = prompt("Enter a comment:    ");
+
+var division2 = document.createElement("div");
+	division2.setAttribute("id", "f1");
+	
+var comm= document.createElement("pre");
+	comm.textContent = a;
+	
+division2.appendChild(comm);
+
+var but = document.getElementById(l);
+var post = but.parentNode;
+	
+post.appendChild(division2);
+
+var btn1 = document.createElement("input");
+	btn1.setAttribute("type","button");
+	btn1.setAttribute("id","c1"+countc);
+	btn1.setAttribute("onclick","reply(this.id)");
+	btn1.setAttribute("value","REPLY"); 
+	
+var btn2 = document.createElement("input");
+    btn2.setAttribute("type","button");
+	btn2.setAttribute("id","c2"+countc);
+	btn2.setAttribute("onclick","del2(this.id)");
+	btn2.setAttribute("value","DELETE COMMENT");
+	
+	countc++;
+   
+division2.appendChild(btn1);
+division2.appendChild(btn2);
+division2.style.backgroundColor ="yellow";
+}
+
+function del2(l)
+{
+	var but = document.getElementById(l);
+	var comm = but.parentNode;
+	var post = comm.parentNode;
+	post.removeChild(comm);
+}
+function reply(l)
+{
+	var stat = prompt("Enter a reply:    ");
+	var but = document.getElementById(l);
+	var comm = but.parentNode;
+	var post = comm.parentNode;
+    var rep= document.createElement("pre");
+    rep.style.backgroundColor ="cyan";
+    rep.textContent = stat;
+    comm.appendChild(rep);
+    post.appendChild(comm);
+
+}
+
+</script>
+
+</head>
+
+<body>
+<h1>enter your status</h1>
+
+
+
+
+<button onclick = "addpost()"> enter your status</button>
+
+
+
+</body>
+
+</html>
