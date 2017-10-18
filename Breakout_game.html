@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+   <meta charset = "utf-8"/>
+   <title>
+       Breakout Game
+   </title>
+   <style>
+      *{padding: 0;margin:0;}
+      canvas{background: #eee;display:block;margin:0auto;}
+   </style>
+</head>
+<body>
+<canvas id = "Canvas" width = "800" height = "650"></canvas>
+<script>
+     var canvas = document.getElementById("Canvas");
+     var ctx = canvas.getContext("2d");
+     var x = canvas.width/2;
+     var y = canvas.height-30;
+     var dx = 5;
+     var dy = -5;
+     var paddleHeight = 10;
+     var paddleWidth = 55;
+     var paddleX = (canvas.width - paddleWidth)/2;
+     var right = false;
+     var left = false;
+     var brickRow = 11;
+     var brickCol = 11;
+     var BrickWidth = 60;
+     var BrickHeight = 15;
+     var BrickPad = 10;
+     var BrickOffsetTop = 30;
+     var BrickOffsetLeft = 30;
+     var bricks = [];
+     var c;
+     var r;
+     var score = 0;
+     var lives = 3;
+     var t=1;
+     for(c=0;c<brickCol;c++)
+     {
+        bricks[c] =[];
+        for(r=0;r<brickRow;r++)
+        {
+          bricks[c][r] = {x:0, y:0, status: 1};
+        }
+     } 
+     document.addEventListener("keydown",keyDownHandler,false);
+     document.addEventListener("keyup",keyUpHandler,false);
+     function keyDownHandler(e)
+     {
+        if(e.keyCode == 39)
+           right = true;
+        else if(e.keyCode == 37)
+           left = true;
+     }
+     function keyUpHandler(e)
+     {
+        if(e.keyCode == 39)
+           right = false;
+        else if(e.keyCode == 37)
+           left = false;
+     }
+     function drawPaddle()
+     {
+        ctx.beginPath();
+        ctx.rect(paddleX,canvas.height-paddleHeight,paddleWidth,paddleHeight);
+        ctx.fillstyle = "red";
+        ctx.fill();
+        ctx.closePath();
+     }
+     function drawball()
+     {
+        ctx.beginPath();
+     	ctx.arc(x, y, 7, 0,Math.PI*2,false);
+     	ctx.fillStyle = "red";
+     	ctx.fill();
+     	ctx.closePath();
+     }
+     function drawbrick()
+     {
+       for(c=0;c<brickCol;c++)
+       {
+         for(r=0;r<brickRow;r++)
+         {
+          if(bricks[c][r].status == 1){
+           var brickX = (c*(BrickWidth+BrickPad))+BrickOffsetLeft;
+           var brickY = (r*(BrickHeight+BrickPad))+BrickOffsetTop;
+           bricks[c][r].x = brickX;
+           bricks[c][r].y = brickY;
+           ctx.beginPath();
+           ctx.rect(brickX,brickY,BrickWidth,BrickHeight);
+           ctx.fillStyle = "red";
+           ctx.fill();
+           ctx.closePath();}
+         }
+       }
+     }
+     function drawScore()
+     {
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "red";
+        ctx.fillText("Score: "+score, 8, 20);
+    }
+
+     function drawLives()
+     {
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "red";
+        ctx.fillText("Lives: "+lives, canvas.width()-65, 20);
+    }
+     function colldetect()
+     {
+       for(c=0;c<brickCol;c++)
+       {
+         for(r=0;r<brickRow;r++)
+         {
+           var b = bricks[c][r];
+           if(b.status == 1)
+           {
+             if(x > b.x && x < b.x+BrickWidth && y > b.y && y < b.y+BrickHeight)
+             {
+              dy = -dy;
+              b.status = 0;
+              score = score+1;
+              if(score == brickRow*brickCol)
+              {
+                 alert("You win!!! Congratulations");
+                 document.location.reload();
+              }
+           }
+         }
+       }
+     }
+    }
+     function draw()
+     {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        drawbrick();
+        drawPaddle();
+        drawball();
+        //drawscore();
+        //drawLives();
+        colldetect();
+        if(x+dx > canvas.width-7 || x+dx < 7)
+           dx = -dx;
+        if(y+dy < 7)
+           dy = -dy;
+        else if(y+dy >canvas.height-7)
+        {
+           if(x>paddleX && x<paddleX+paddleWidth)
+             dy = -dy;
+           else
+           {
+             lives--;
+             t=t+1;
+             if(!lives)
+             {
+                alert("GAME OVER");
+                document.location.reload();
+             }
+             else 
+             {
+    		x = canvas.width/2;
+    		y = canvas.height-30;
+    		dx = (4+(t));
+    		dy = -(4+(t));
+    		paddleX = (canvas.width-paddleWidth)/2;
+             }
+           }
+        }
+        if(right && paddleX < canvas.width-paddleWidth)
+            paddleX+=7; 
+        else if(left && paddleX >0)
+            paddleX-=7;
+        x+=dx;
+        y+=dy;  
+        requestAnimationFrame(draw);
+     }
+     draw();
+</script>
+</body>
+</html>
