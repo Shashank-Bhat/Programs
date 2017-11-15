@@ -1,0 +1,323 @@
+<html>
+<head>
+   <style>
+      
+      button
+      {
+        padding:25px;
+        background-color:black;
+        color:white;
+        margin:0px;
+        border-width:0px;
+        width:50px;
+        height:30px;
+        text-align:center;
+        display:block;
+      }
+      button:active
+      {
+        transform: translateY(4px);
+      }
+      input[type=text]
+      {
+        border-radius:10px;
+        height:40px;
+        font-weight:bold;
+        text-align:right;
+        background-color:yellow;
+        border-radius:10px;
+      }
+      .one
+      {
+        border-radius:0%;
+
+      }
+      .two
+      {
+        background-color:grey;
+      }
+      .four
+      {
+        border-bottom-left-radius:10px;
+        width:102px;
+        height:30px;
+      }
+      .five
+      {
+        background-color:red;
+        border-bottom-right-radius:10px;
+        width:50px;
+      }
+table
+{
+margin-top:80px;
+background-color:rgb(83,83,83);
+padding:0px;
+border-radius:10px;
+}
+td
+{
+  margin:0px;
+}
+h1
+{
+  text-align:center;
+}
+   </style>
+</head>
+<body onload="clearit()">
+<h1>
+   Calculator
+</h1>
+<table cellspacing="0px" align="center">
+  <tr align="center" colspan="2">
+    <td align="center" colspan="4">
+     <form id="myform">
+       <input type="text" name="input" id="id1"><br/>
+       <input type="text" name="output" id="id2" readonly><br>
+     </form>
+    </td>
+  </tr>
+ <tr>
+   <td align="center" colspan="1">
+     <button class="two" onclick="clearit()">
+        C
+     </button>
+   </td> 
+   <td align="center">
+     <button class="two" onclick="back()">
+        <-
+     </button>
+   </td>
+   <td align="center">
+     <button class="two" onclick="operator3()">
+        /
+     </button>
+   </td>
+   <td align="center">
+     <button class="two" onclick="operator4()">
+        X
+     </button>
+   </td>
+ </tr>
+ <tr>
+  <td align="center">
+   <button class="one" id="id3" value="1" onclick="operand1()">
+      1
+   </button>
+  </td align="center">
+  <td align="center">
+   <button class="one" id="id4" onclick="operand2()">
+      2
+   </button>
+  </td>
+  <td align="center">
+   <button class="one" id="id5" onclick="operand3()">
+      3
+   </button>
+  </td>
+  <td align="center">
+     <button class="two" onclick="operator2()">
+      -
+   </button>
+  </td>
+ </tr>
+ <tr> 
+  <td align="center">
+   <button class="one" id="id6" onclick="operand4()">
+      4
+   </button>
+  </td>
+  <td align="center">
+   <button class="one" id="id7" onclick="operand5()">
+      5
+   </button>
+  </td>
+  <td align="center">
+   <button  class="one" id="id8" onclick="operand6()">
+      6
+   </button>
+  </td>
+  <td align="center">
+    <button class="two" onclick="operator1()">
+      +
+   </button>
+  </td>
+</tr>
+<tr>
+  <td align="center">
+   <button class="one" id="id9" onclick="operand7()">
+      7
+   </button>
+  </td>
+  <td align="center">
+   <button class="one" id="id10" onclick="operand8()">
+      8
+   </button>
+  </td>
+  <td align="center">
+   <button class="one" id="id11" onclick="operand9()">
+      9
+   </button>
+  </td> 
+  <td align="center" rowspan="2">
+    <button class="five"  style="height:102px;" onclick="equal()">
+      =
+   </button>
+  </td>
+</tr>
+<tr>
+  <td align="center" colspan="2">
+   <button class="four" id="id12" onclick="operand10()">
+      0
+   </button>
+   </td>
+   <td align="center">
+   <button class="one" id="id12" value="0" onclick="operand11()">
+      .
+   </button>
+   </td>
+</tr>
+</table>
+   <script>
+
+function back()
+{
+  var x = document.getElementById("id1").value;
+  x = x.slice(0, x.length-1);
+  document.getElementById("id1").value = x; 
+}
+function clearit()
+{
+	document.getElementById('id1').value="";
+        document.getElementById('id2').value="";
+}
+      function operator1()
+      {
+		if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="+";
+		else
+		document.getElementById('id1').value+="+";
+      }
+      function operator2()
+      {
+		if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="-";
+		else
+		document.getElementById('id1').value+="-";
+      }
+      function operator3()
+      {
+		if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="/";
+		else
+		document.getElementById('id1').value+="/";
+
+      }
+      function operator4()
+      {
+	if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="*";
+		else
+		document.getElementById('id1').value+="*";
+      }
+      function operand1()
+      {
+		if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="1";
+		else
+		document.getElementById('id1').value+="1";
+      }
+      function operand2()
+      {
+		if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="2";
+		else
+		document.getElementById('id1').value+="2";
+      }
+      function operand3()
+      {
+		if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="3";
+		else
+		document.getElementById('id1').value+="3";
+      }
+      function operand4()
+      {
+		if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="4";
+		else
+		document.getElementById('id1').value+="4";
+      }
+      function operand5()
+      {
+          if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="5";
+		else
+		document.getElementById('id1').value+="5";   
+
+      }
+      function operand6()
+      {
+          if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="6";
+		else
+		document.getElementById('id1').value+="6";    
+      }
+      function operand7()
+      {
+		if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="7";
+		else
+		document.getElementById('id1').value+="7";
+
+      }
+      function operand8()
+      {	if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="8";
+		else
+		document.getElementById('id1').value+="8";
+
+      }
+      function operand9()
+      {
+		if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="9";
+		else
+		document.getElementById('id1').value+="9";
+
+      }
+      function operand10()
+      {
+		if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value="0";
+		else
+		document.getElementById('id1').value+="0";
+
+      }
+      function operand11()
+      {
+           if(document.getElementById('id1').value=="")
+			document.getElementById('id1').value=".";
+		else
+		document.getElementById('id1').value+=".";
+
+      }
+      function equal()
+      {
+        var a = document.getElementById("id1").value;
+        try
+        {
+           var res = eval(a);
+           document.getElementById("id2").value = res;
+        }
+        catch(e)
+        {
+          document.getElementById("id2").value = "Error";
+        }
+      }
+      
+   </script>
+</body>
+</html>
+   
